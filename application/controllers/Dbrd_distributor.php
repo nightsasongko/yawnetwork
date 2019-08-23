@@ -116,7 +116,6 @@ class Dbrd_distributor extends CI_Controller {
                 'id_kota' => htmlspecialchars($this->input->post('id_kota', true)),
                 'kodepos' => htmlspecialchars($this->input->post('kodepos', true)),
                 'telepon' => htmlspecialchars($this->input->post('telepon', true)),
-                'email' => htmlspecialchars($this->input->post('email', true)),
                 'id_bank' => htmlspecialchars($this->input->post('kode', true)),
                 'nomor_rekening' => htmlspecialchars($this->input->post('nomor_rekening', true)),
                 'nama_rekening' => htmlspecialchars($this->input->post('nama_rekening', true)),
@@ -125,8 +124,8 @@ class Dbrd_distributor extends CI_Controller {
                 'link_tokopedia' => htmlspecialchars($this->input->post('link_tokopedia', true)),
                 'link_bukalapak' => htmlspecialchars($this->input->post('link_bukalapak', true)),
                 'link_shopee' => htmlspecialchars($this->input->post('link_shopee', true)),
-                'link_blibli' => htmlspecialchars($this->input->post('link_blibli', true)),
-                'avatar' => $file['file_name'],
+                'link_blibli' => htmlspecialchars($this->input->post('link_blibli', true))
+
             );
             $this->db->where('id_member', $id_member);
             $this->db->update('member', $data);
@@ -575,6 +574,8 @@ class Dbrd_distributor extends CI_Controller {
 		}
 		else
 		{
+            $data['nomor_transaksi'] = $this->input->get('nomor_transaksi');
+
              // cek session aktif
 			if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
 				redirect(base_url());
@@ -588,8 +589,32 @@ class Dbrd_distributor extends CI_Controller {
             // jumlah belanja
             $data['num_kjngbln'] = $this->distributor_model->num_keranjang_belanja($id_member);
 
-
             $this->load->view('dashboard/konfirmasi-terima-barang', $data);
+        }
+    }
+
+    public function konfirmasi_status_bayar()
+    {
+        if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+             // cek session aktif
+			if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
+				redirect(base_url());
+            }
+
+            $nomor_transaksi = $this->input->get('nomor_transaksi');
+
+            $datar = array(
+                'status_kirim' => 2 
+            );
+
+            $this->db->where('nomor_transaksi', $nomor_transaksi);
+            $this->db->update('transaksi_umum', $datar);
+            redirect(base_url('histori_transaksi'));
         }
     }
 	

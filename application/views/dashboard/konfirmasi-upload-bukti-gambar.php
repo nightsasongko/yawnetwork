@@ -53,15 +53,15 @@ include "header.php";
 				</p>
 				<h6 class="blue mt-3"><b>File browser</b></h6>
 				<div class="custom-file mb-3 col-7">
-                    <form method="post" action="<?= base_url('upload/img_trs_umum_upload/')?><?= $nomor_transaksi ?>" enctype="multipart/form-data">
-                        <input type="file" class="custom-file-input" id="file_bukti_bayar" name="file_bukti_bayar" name="filename">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    
+					<div class="col-sm-6 upload-btn">
+						<div class="img-thumbnail-cover">
+							<form method="post" action="<?= base_url('upload/img_trs_umum_upload/')?><?= $nomor_transaksi ?>" enctype="multipart/form-data">
+								<input type="file" id="file_bukti_bayar" name="file_bukti_bayar" size="33" />
+								<input type="submit" value="Upload Image" /><br><br>
+							</form>
+						</div>
+					</div>
 				</div>
-				<div class="btn-submit" align="right">
-					<button type="submit" class="btn ">Kirim</button>
-				</div></form>
-
 			</div>	
 			
 		</div>

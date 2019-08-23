@@ -112,7 +112,7 @@ include "header.php";
 										Alamat
 									</label>
 									<div class="col-sm-6">
-										<textarea class="form-control" id="" rows="3"><?php echo htmlspecialchars($profile['alamat']); ?></textarea>
+										<textarea class="form-control" id="alamat" name="alamat" rows="3"><?php echo htmlspecialchars($profile['alamat']); ?></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -141,7 +141,7 @@ include "header.php";
 										Email
 									</label>
 									<div class="col-sm-6">
-										<input type="email" class="form-control" name="email" id="email" value="<?= $profile['email'] ?>" placeholder="Email" disabled>
+										<input type="email" class="form-control" name="" id="" value="<?= $profile['email'] ?>" placeholder="Email" disabled>
 									</div>
 								</div>
 

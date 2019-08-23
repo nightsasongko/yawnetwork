@@ -87,3 +87,7 @@ $route['faq'] = "home/faq";
 $route['syarat-ketentuan'] = "home/syaratketentuan";
 $route['management-board'] = "home/management_board"; 
 $route['distributor/toko/(:any)'] = "home/detaildistributor/$1";
+$route['form_pembayaran_registrasi'] = "home/pembayaran_registrasi";
+$route['konfirmasi_pembayaran_sukses'] = "home/after_konfirmasi_pembayaran_registrasi";
+$route['error_page'] = "distributor/errorpage";
+

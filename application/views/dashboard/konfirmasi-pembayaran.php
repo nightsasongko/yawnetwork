@@ -156,7 +156,9 @@ include "header.php";
 					<input type="hidden" name="nomor_transaksi" value="<?= $nomor_transaksi?>">
 				</table>
 					<input type="hidden" name="daftarfilelogo2" id="daftarfilelogo2">
-					<button type="submit">Submit</button>
+					<div class="btn-submit">
+						<button type="submit" class="btn">Submit</button>
+					</div>
 				</form>
 				<form name="uploadform2" id="uploadform2" method="post" style="display:none" class="hide" action="<?php echo base_url();?>dbrd_distributor/gambar_bukti_transfer" enctype="multipart/form-data">
 					<input type="file" name="gambar2" id="gambar2" >

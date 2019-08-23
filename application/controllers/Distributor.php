@@ -50,38 +50,114 @@ class Distributor extends CI_Controller {
                 'min_length' => 'Password terlalu pendek!'
             ]);
             $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-    
-            if ($this->form_validation->run() == FALSE) 
+            
+            $email = $this->input->post('email');
+            $permalink = $this->dasarlib->buatPermalink($this->input->post('nama', true));
+            //cek email sama
+            if($this->dasar_model->cekDataOnTable('member','email', $email))
             {
-                // ambil data di tabel produk_item, produk_image
-                $data['all_produk_item'] = $this->distributor_model->getlistproduk();
+                $data['dataerror'] = "Error: Email ini sudah terdaftar.";
+                // exit;	
+                $this->errorpage($data);
+            }
+            // cek pramalink sama
+            elseif($this->dasar_model->cekDataOnTable('member','permalink', $permalink))
+            {
+                $data['dataerror'] = "Error: Nama ini sudah terdaftar.";	
+                $this->errorpage($data);
+            }
 
-                if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+            else
+            {
+                if ($this->form_validation->run() == FALSE) 
                 {
-                    $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
-                    $data['cek_login'] = "1";
-                } 
+                    // ambil data di tabel produk_item, produk_image
+                    $data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+                    if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+                    {
+                        $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+                        $data['cek_login'] = "1";
+                    } 
+                    else 
+                    {
+                        $data['cek_login'] = "0";
+                    }
+                    $data['title'] = "YAW";
+                    $this->load->view('public/header', $data);
+                    $this->load->view('public/index', $data);
+                    $this->load->view('public/footer', $data);
+                }
                 else 
                 {
-                    $data['cek_login'] = "0";
+                    $data = array(
+                        'nama' => htmlspecialchars($this->input->post('nama', true)),
+                        'level' => 1,
+                        'email' => htmlspecialchars($this->input->post('email', true)),
+                        'password' => md5($this->input->post('password1')),
+                        'join_date' => date('Y-m-d'), 
+                        'permalink' => $this->dasarlib->buatPermalink($this->input->post('nama', true))
+                    );
+                    $this->db->insert('member', $data);
+                    $this->session->set_flashdata('rgs_success', 'Registrasi berhasil.');
+                    redirect(base_url().'distributor/after_registrasi');
                 }
-                $data['title'] = "YAW";
-                $this->load->view('public/header', $data);
-                $this->load->view('public/index', $data);
-                $this->load->view('public/footer', $data);
             }
+
+            
+		}
+    }
+
+    public function errorpage($data)
+    {
+        if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+            $data['dataerror'];
+
+            if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+            {
+                $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+                $data['cek_login'] = "1";
+            } 
             else 
             {
-                $data = array(
-                    'nama' => htmlspecialchars($this->input->post('nama', true)),
-                    'email' => htmlspecialchars($this->input->post('email', true)),
-					'password' => md5($this->input->post('password1')),
-					'permalink' => $this->dasarlib->buatPermalink($this->input->post('nama', true))
-                );
-                $this->db->insert('member', $data);
-                $this->session->set_flashdata('rgs_success', 'Registrasi berhasil.');
-                redirect('home');
+                $data['cek_login'] = "0";
             }
+
+            $data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+            $this->load->view('public/error_page', $data);
+        }
+    }
+
+    public function after_registrasi()
+    {
+        if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+            $data['title'] = "Registrasi Distributor";
+
+            // kondisi cek login
+			if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+			{
+				$data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+				$data['cek_login'] = "1";
+			} 
+			else 
+			{
+				$data['cek_login'] = "0";
+			}
+
+            $this->load->view('public/header', $data);
+            $this->load->view('public/after_registrasi', $data);
+            $this->load->view('public/footer', $data);
 		}
     }
     

@@ -122,7 +122,7 @@ include "header.php";
 					<?php } if ($tu['status_kirim']==1) { ?>
 						<a href="<?php echo base_url(); ?>dbrd_distributor/konfirmasi_terima_barang?nomor_transaksi=<?= $tu['nomor_transaksi']?>"><span class="btn btn-primary"><i class="fa fa-check"></i> Konfirmasi Terima Barang</span></a> 
 					<?php } if ($tu['status_bayar']==4) { ?>
-						<span class="btn btn-primary"><i class="fa fa-check"></i> Pengecekan Oleh Admin</span>
+						<i class="fa fa-check"></i> Dilakukan Pengecekan Oleh Admin</span>
 					<?php } ?>
 
 					<!-- <button>Barang di terima</button> -->

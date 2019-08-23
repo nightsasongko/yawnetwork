@@ -8,7 +8,7 @@ class Akun extends CI_Controller {
 
 		$this->load->model('home_model');
 		$this->load->model('akun_model');
-
+        $this->load->model('distributor_model');
 	}	 
 
 
@@ -79,10 +79,37 @@ class Akun extends CI_Controller {
 				redirect(base_url().'dashboard');
 			}
 			else {
-				echo "salah login";exit;
+				$data['dataerror'] = "Password dan user salah atau akun belum terdaftar.";
+                $this->errorpage($data);
 			}
 		}
 	}
+
+	public function errorpage($data)
+    {
+        if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+            $data['dataerror'];
+
+            if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+            {
+                $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+                $data['cek_login'] = "1";
+            } 
+            else 
+            {
+                $data['cek_login'] = "0";
+            }
+
+            $data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+            $this->load->view('public/error_page', $data);
+        }
+    }
 
 	public function dologout()
 	{

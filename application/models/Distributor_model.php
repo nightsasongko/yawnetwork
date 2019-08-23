@@ -274,6 +274,22 @@ class Distributor_model extends CI_Model
 			return false;
 		}
     }
+
+    function getcekmemberbaru($permalink)
+	{
+		$sql = "select count('id_member') as jml from member where status=0 and permalink = '$permalink'";
+		$res = $this->db->query($sql);
+		$row = $res->row_array();		
+		$jml = $row['jml'];
+		if($jml > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }	
     
     
 }

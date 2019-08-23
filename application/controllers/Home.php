@@ -234,6 +234,98 @@ class Home extends CI_Controller {
 		}
 		
 	}
+
+	public function pembayaran_registrasi()
+	{
+		if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+			// kondisi cek login
+			if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+			{
+				$data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+				$data['cek_login'] = "1";
+			} 
+			else 
+			{
+				$data['cek_login'] = "0";
+			}
+
+			$data['permalink'] = $this->input->get('permalink');
+			$permalink = $data['permalink'];
+			
+			if ($this->distributor_model->getcekmemberbaru($permalink)) {
+				// ambil data di tabel produk_item, produk_image
+				$data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+				//mendapatkan list bank
+				$data['bank'] = $this->db->get('bank_list')->result_array();
+				
+				$data['title'] = "YAW";
+				$this->load->view('public/header', $data);
+				$this->load->view('public/konfirmasi_pembayaran_registrasi', $data);
+				$this->load->view('public/footer');
+			} else {
+				$this->load->view('public/error_no_distributor');
+			}
+			
+		}
+	}
+
+	public function pembayaran_registrasi_post()
+	{
+		if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+			$permalink = $this->input->get('permalink');
+
+			$data = array(
+				'status' => 1, 
+				'id_bank' => $this->input->post('kode'), 
+				'nomor_rekening' => $this->input->post('nomor_rekening'), 
+				'nama_rekening' => $this->input->post('nama_rekening'), 
+			);
+
+			$this->db->where('permalink', $permalink);
+			$this->db->update('member', $data);
+			redirect(base_url('konfirmasi_pembayaran_sukses'));
+		}
+	}
+
+	public function after_konfirmasi_pembayaran_registrasi()
+	{
+		if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+            $data['title'] = "Registrasi Distributor";
+
+            // kondisi cek login
+			if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+			{
+				$data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+				$data['cek_login'] = "1";
+			} 
+			else 
+			{
+				$data['cek_login'] = "0";
+			}
+			
+			$data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+            $this->load->view('public/header', $data);
+            $this->load->view('public/after_konfirmasi_pembayaran_registrasi', $data);
+            $this->load->view('public/footer', $data);
+		}
+	}
 	
 
 }

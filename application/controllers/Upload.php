@@ -22,8 +22,16 @@ class Upload extends CI_Controller {
         $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
         $profile = $data['profile'];
         $id_member = $profile['id_member'];
+        $namafile = explode(".", $_FILES['profile_image']['name']);
+		$fileext = end($namafile);
 
-        $image = $_FILES['profile_image']['name'];
+		$waktu = date("YmdHis");
+		$acak = $this->dasarlib->getRandomString(4);
+
+		$nama_file_baru = $waktu."_".$acak.".".$fileext;
+
+        $image = $nama_file_baru;
+        $config['file_name']  = $nama_file_baru;
         $config['upload_path'] = './assets/gambar_distributor/avatar/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 2000;
@@ -57,8 +65,16 @@ class Upload extends CI_Controller {
         $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
         $profile = $data['profile'];
         $id_member = $profile['id_member'];
+        $namafile = explode(".", $_FILES['gambar_toko']['name']);
+		$fileext = end($namafile);
 
-        $image = $_FILES['gambar_toko']['name'];
+		$waktu = date("YmdHis");
+		$acak = $this->dasarlib->getRandomString(4);
+
+		$nama_file_baru = $waktu."_".$acak.".".$fileext;
+
+        $image = $nama_file_baru;
+        $config['file_name']  = $nama_file_baru;
         $config['upload_path'] = './assets/gambar_distributor/gambar_toko/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 2000;
@@ -91,8 +107,16 @@ class Upload extends CI_Controller {
         $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
         $profile = $data['profile'];
         $id_member = $profile['id_member'];
+        $namafile = explode(".", $_FILES['file_bukti_bayar']['name']);
+		$fileext = end($namafile);
 
-        $image = $_FILES['file_bukti_bayar']['name'];
+		$waktu = date("YmdHis");
+		$acak = $this->dasarlib->getRandomString(4);
+
+		$nama_file_baru = $waktu."_".$acak.".".$fileext;
+
+        $image = $nama_file_baru;
+        $config['file_name']  = $nama_file_baru;
         $config['upload_path'] = './assets/gambar_bukti_bayar/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 2000;

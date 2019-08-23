@@ -52,8 +52,11 @@ include "header.php";
 						</div>
 					</div>
 				</div>
-                <form action="" method="post">
-                    <button type="submit">Sudah terima barang</button>
+				<p>Apakah ada yakin sudah menerima barang?</p>
+                <form action="<?=base_url()?>/dbrd_distributor/konfirmasi_status_bayar?nomor_transaksi=<?= $nomor_transaksi ?>" method="post">
+					<div class="btn-submit">
+						<button class="btn" type="submit">Sudah terima barang</button>
+					</div>
                 </form>
 
 			</div>
