@@ -28,6 +28,7 @@ include "header.php";
 	}
 </style>	
 
+
 <div class="eror_page">
 	<div class="container">
 		<div class="d-flex bd-highlight">
@@ -56,7 +57,7 @@ include "header.php";
 				
 				<h4 class="blue mb-3" align="center">
 					<b>
-					Trimakasih sudah melakukan pendaftaran.
+						404 Page Not Found
 					</b>
 				</h4>
 				<div class="width-btn mt-4" align="center">
@@ -67,7 +68,13 @@ include "header.php";
 			</div>
 		</div>
 	</section>
+
+	
+
+
 </div>
+
+
 
 <?php
 include "footer.php";

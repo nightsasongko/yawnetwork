@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 21 Agu 2019 pada 16.46
+-- Waktu pembuatan: 23 Agu 2019 pada 16.08
 -- Versi server: 10.0.38-MariaDB
 -- Versi PHP: 7.1.14
 
@@ -959,17 +959,18 @@ CREATE TABLE `member` (
   `permalink` varchar(254) NOT NULL,
   `avatar` varchar(128) NOT NULL,
   `gambar_toko` varchar(32) NOT NULL,
-  `kunjungan` int(11) NOT NULL
+  `kunjungan` int(11) NOT NULL,
+  `bukti_transfer` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `member`
 --
 
-INSERT INTO `member` (`id_member`, `level`, `nama`, `alamat`, `id_kota`, `kodepos`, `telepon`, `email`, `password`, `id_member_upline`, `id_member_sponsor`, `join_date`, `status`, `id_bank`, `nomor_rekening`, `nama_rekening`, `saldo_rupiah`, `saldo_poin`, `link_instagram`, `link_lazada`, `link_tokopedia`, `link_bukalapak`, `link_shopee`, `link_blibli`, `permalink`, `avatar`, `gambar_toko`, `kunjungan`) VALUES
-(1, 1, 'Ugus Marugus', 'Karangmojo, Tasikmadu', 200, '57722', '08122334455667', 'ugus@gmail.com', '3599f8a8ca68ce5059721b818a6ba6fe', 0, 0, '2019-07-21', 2, '002', '22334455', 'Ugus Juga', 0, 12540, 'https://www.instagram.com/ndeso_family/', 'a', 'b', 'c', 'd', 'e', 'ugus-marugus', '', '', 11),
-(3, 1, 'Undis', 'Manggisan Permai RT.06 RW.07 Kel.Mudal, Kec.Mojotengah, Kab.Wonosobo', 3, '', '085227722053', 'undis@gmail.com', '338f06165f55b7f19ce417dd70043d9b', 0, 0, '2019-07-22', 2, '002', '242323', 'Night Sasongko', 0, 0, 'https://www.instagram.com/galnslery_fotografi_art_/', 'https://www.lazada.co.id/?spm=a2o4j.pdp.header.dhome.a5e4133bqxwjbr#', 'https://www.tokopedia.com/nsasongko-store?nref=shphead', 'https://www.bukalapak.com/?blca=SEBRA-BR-GEN-D-s&amp;blpt=SEBRA-BR-GEN-D-s&amp;gclid=CjwKCAjwpuXpBRAAEiwAyRRPgbigpxB-DjsqE_iDeOZcWQRhUmMR9AhVB4ov1Pm8UuOzUtHCY7oJtBoCwocQAvD_BwE&amp;sem=65884349968_1t1_1597133973_c_9056664_g_aud-550125406930:kwd-48053501828', 'https://shopee.co.id/?gclid=CjwKCAjwpuXpBRAAEiwAyRRPgeAGNssxVWqLKVW0_41rI0FebKL8aUe5Bsg65_CgAjiWXN5vlKeluBoC434QAvD_BwE', 'https://www.blibli.com/', 'undis-margundis', 'step1.png', 'default-gambar-keterangan.png', 32),
-(10, 0, 'Night Sasongko', '', 0, '', '', 'nightsasongko.website@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 0, 0, '0000-00-00', 0, '', '', '', 0, 0, '', '', '', '', '', '', 'night-sasongko', '', '', 0);
+INSERT INTO `member` (`id_member`, `level`, `nama`, `alamat`, `id_kota`, `kodepos`, `telepon`, `email`, `password`, `id_member_upline`, `id_member_sponsor`, `join_date`, `status`, `id_bank`, `nomor_rekening`, `nama_rekening`, `saldo_rupiah`, `saldo_poin`, `link_instagram`, `link_lazada`, `link_tokopedia`, `link_bukalapak`, `link_shopee`, `link_blibli`, `permalink`, `avatar`, `gambar_toko`, `kunjungan`, `bukti_transfer`) VALUES
+(1, 1, 'Ugus Marugus', 'Karangmojo, Tasikmadu', 200, '57722', '08122334455667', 'ugus@gmail.com', '3599f8a8ca68ce5059721b818a6ba6fe', 0, 0, '2019-07-21', 2, '002', '22334455', 'Ugus Juga', 0, 12540, 'https://www.instagram.com/ndeso_family/', 'a', 'b', 'c', 'd', 'e', 'ugus-marugus', '', '', 19, ''),
+(3, 1, 'Undis', 'aaaa', 3, '', '085227722053', 'undis@gmail.com', '338f06165f55b7f19ce417dd70043d9b', 0, 0, '2019-07-22', 2, '002', '242323', 'Night Sasongko', 0, 12, 'https://www.instagram.com/galnslery_fotografi_art_/', 'https://www.lazada.co.id/?spm=a2o4j.pdp.header.dhome.a5e4133bqxwjbr#', 'https://www.tokopedia.com/nsasongko-store?nref=shphead', 'https://www.bukalapak.com/?blca=SEBRA-BR-GEN-D-s&amp;blpt=SEBRA-BR-GEN-D-s&amp;gclid=CjwKCAjwpuXpBRAAEiwAyRRPgbigpxB-DjsqE_iDeOZcWQRhUmMR9AhVB4ov1Pm8UuOzUtHCY7oJtBoCwocQAvD_BwE&amp;sem=65884349968_1t1_1597133973_c_9056664_g_aud-550125406930:kwd-48053501828', 'https://shopee.co.id/?gclid=CjwKCAjwpuXpBRAAEiwAyRRPgeAGNssxVWqLKVW0_41rI0FebKL8aUe5Bsg65_CgAjiWXN5vlKeluBoC434QAvD_BwE', 'https://www.blibli.com/', 'undis-margundis', '20190822062109_4165.jpg', '20190822052835_1774.jpg', 36, ''),
+(16, 1, 'Night Sasongko', '', 0, '', '', 'night_sasongko@yahoo.co.id', '202cb962ac59075b964b07152d234b70', 0, 0, '2019-08-23', 0, '', '', '', 0, 0, '', '', '', '', '', '', 'night-sasongko', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -986,6 +987,29 @@ CREATE TABLE `mutasi_fee_promosi` (
   `keterangan` varchar(254) NOT NULL,
   `plus_minus` tinyint(4) NOT NULL COMMENT '1 plus, 2 minus'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mutasi_poin_member`
+--
+
+CREATE TABLE `mutasi_poin_member` (
+  `id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `sejumlah` int(11) NOT NULL,
+  `id_transaksi` int(11) NOT NULL,
+  `posting_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `keterangan` varchar(254) NOT NULL,
+  `plus_minus` tinyint(4) NOT NULL COMMENT '1 plus, 2 minus'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `mutasi_poin_member`
+--
+
+INSERT INTO `mutasi_poin_member` (`id`, `id_member`, `sejumlah`, `id_transaksi`, `posting_date`, `keterangan`, `plus_minus`) VALUES
+(1, 3, 4, 24, '2019-08-22 10:38:48', 'Transaksi terbayar dari nomor transaksi: 1031', 1);
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1251,12 @@ INSERT INTO `trail` (`id`, `userid`, `username`, `postingdate`, `keterangan`) VA
 (95, 1, 'superadmin', '2019-08-16 10:23:51', 'Edit item produk: Nano Fix Up'),
 (96, 1, 'superadmin', '2019-08-16 10:26:58', 'Edit item produk: Nano Fix Up'),
 (97, 1, 'superadmin', '2019-08-16 16:27:20', 'Login ke dashboard'),
-(98, 1, 'superadmin', '2019-08-20 08:55:37', 'Login ke dashboard');
+(98, 1, 'superadmin', '2019-08-20 08:55:37', 'Login ke dashboard'),
+(99, 1, 'superadmin', '2019-08-22 10:09:46', 'Login ke dashboard'),
+(100, 1, 'superadmin', '2019-08-22 10:38:48', 'ubah status invoice id: 24, nomor: 1031'),
+(101, 1, 'superadmin', '2019-08-22 10:40:36', 'ubah status kirim id: 24, nomor: 1031'),
+(102, 1, 'superadmin', '2019-08-22 14:25:32', 'Login ke dashboard'),
+(103, 1, 'superadmin', '2019-08-22 14:53:18', 'Login ke dashboard');
 
 -- --------------------------------------------------------
 
@@ -1281,7 +1310,13 @@ INSERT INTO `transaksi_detail` (`id_trx_detail`, `id_transaksi`, `id_pembeli`, `
 (27, 21, 3, 2, 1, 100000, 100000, 1, '2019-08-21 13:51:39'),
 (28, 21, 3, 1, 4, 70000, 280000, 1, '2019-08-21 13:51:39'),
 (29, 22, 3, 1, 1, 70000, 70000, 1, '2019-08-21 16:07:31'),
-(30, 23, 3, 1, 8, 70000, 560000, 1, '2019-08-21 16:07:50');
+(30, 23, 3, 1, 8, 70000, 560000, 1, '2019-08-21 16:07:50'),
+(31, 24, 3, 1, 2, 70000, 140000, 1, '2019-08-22 10:07:20'),
+(32, 24, 3, 2, 3, 100000, 300000, 1, '2019-08-22 10:07:20'),
+(33, 25, 3, 1, 1, 70000, 70000, 1, '2019-08-22 12:29:16'),
+(34, 25, 3, 2, 2, 100000, 200000, 1, '2019-08-22 12:29:16'),
+(35, 26, 3, 1, 2, 70000, 140000, 1, '2019-08-22 12:56:13'),
+(36, 27, 3, 1, 2, 70000, 140000, 1, '2019-08-23 13:25:59');
 
 -- --------------------------------------------------------
 
@@ -1348,7 +1383,11 @@ INSERT INTO `transaksi_umum` (`id_transaksi`, `id_member`, `posting_date`, `nomo
 (20, 3, '2019-08-21 09:57:13', '1019', 960000, 0, 960000, 0, 960000, 0, '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', ''),
 (21, 3, '2019-08-21 13:51:39', '1020', 380000, 0, 380000, 0, 380000, 4, '0000-00-00 00:00:00', '', '', '', '', '002', '242323', 'Night Sasongko', '', 'Undis', 'Manggisan Permai RT.06 RW.07 Kel.Mudal, Kec.Mojotengah, Kab.Wonosobo', 3, 777, '085227722053', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', 'brand-logo.png'),
 (22, 3, '2019-08-21 16:07:31', '1028', 70000, 0, 70000, 0, 70000, 0, '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', ''),
-(23, 3, '2019-08-21 16:07:50', '1029', 560000, 0, 560000, 0, 560000, 0, '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', 'brand-logo.png');
+(23, 3, '2019-08-21 16:07:50', '1029', 560000, 0, 560000, 0, 560000, 0, '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', 'brand-logo.png'),
+(24, 3, '2019-08-22 10:07:20', '1031', 440000, 0, 440000, 0, 440000, 1, '0000-00-00 00:00:00', '', '', '', '', '002', '242323', 'Night Sasongko', '', 'Undis', 'Manggisan Permai RT.06 RW.07 Kel.Mudal, Kec.Mojotengah, Kab.Wonosobo', 3, 123, '085227722053', 0, 0, 0, '', '2019-08-21', '0000-00-00', 2, '', 'brand-logo.png'),
+(25, 3, '2019-08-22 12:29:16', '1032', 270000, 0, 270000, 0, 270000, 4, '0000-00-00 00:00:00', '', '', '', '', '002', '242323', 'Night Sasongko', '', 'Undis', 'aaaa', 3, 3333, '085227722053', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', '20190822055237_7951.jpg'),
+(26, 3, '2019-08-22 12:56:13', '1033', 140000, 0, 140000, 0, 140000, 0, '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', '20190822062129_8251.jpg'),
+(27, 3, '2019-08-23 13:25:59', '1034', 140000, 0, 140000, 0, 140000, 4, '0000-00-00 00:00:00', '', '', '', '', '002', '242323', 'Night Sasongko', '', 'Undis', 'aaaa', 3, 4444, '085227722053', 0, 0, 0, '', '0000-00-00', '0000-00-00', 0, '', '20190823062650_4821.jpg');
 
 -- --------------------------------------------------------
 
@@ -1366,7 +1405,7 @@ CREATE TABLE `transaksi_urutan` (
 --
 
 INSERT INTO `transaksi_urutan` (`id`, `urutan`) VALUES
-(1, 1031);
+(1, 1035);
 
 -- --------------------------------------------------------
 
@@ -1535,6 +1574,12 @@ ALTER TABLE `mutasi_fee_promosi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `mutasi_poin_member`
+--
+ALTER TABLE `mutasi_poin_member`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
@@ -1627,7 +1672,7 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT untuk tabel `company`
@@ -1675,13 +1720,19 @@ ALTER TABLE `master_wilayah`
 -- AUTO_INCREMENT untuk tabel `member`
 --
 ALTER TABLE `member`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `mutasi_fee_promosi`
 --
 ALTER TABLE `mutasi_fee_promosi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `mutasi_poin_member`
+--
+ALTER TABLE `mutasi_poin_member`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengguna`
@@ -1717,19 +1768,19 @@ ALTER TABLE `produk_review`
 -- AUTO_INCREMENT untuk tabel `trail`
 --
 ALTER TABLE `trail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_trx_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_trx_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_umum`
 --
 ALTER TABLE `transaksi_umum`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_urutan`

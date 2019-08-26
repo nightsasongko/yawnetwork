@@ -12,7 +12,14 @@ include "header2.php";
 <div id="" >
 	<section id="banner">
 		<div class="banner ">
-			<img src="<?= base_url()?>assets/home_assets/img/cover-product2.jpg">
+			<?php if ($item_produk['id_kategori']==1) { ?>
+				<img src="<?= base_url()?>assets/home_assets/img/cover-product2.jpg">
+			<?php } elseif ($item_produk['id_kategori']==2) { ?>
+				<img src="<?= base_url()?>assets/home_assets/img/sanitation.jpg">
+			<?php } else { ?>
+				<img src="<?= base_url()?>assets/home_assets/img/default-carecare.jpg">
+			<?php } ?>
+			<!-- <img src="<?= base_url()?>assets/home_assets/img/cover-product2.jpg"> -->
 			<div class="bg-gradient-soft"></div>
 		</div>	
 	</section>
@@ -26,7 +33,16 @@ include "header2.php";
 					<div class="mb-2">
 						<h5 class="blue"><b><?= $item_produk['nama'] ?></b></h5>
 						<h6 class="blue"></h6>
-						<h6 class="blue">Kategori Produk : Healty Life</h6>
+						<h6 class="blue">
+							Kategori Produk : 
+							<?php if ($item_produk['id_kategori']==1) { ?>
+								 Healthy Life
+							<?php } elseif ($item_produk['id_kategori']==2) { ?>
+								Hygiene Sanitation
+							<?php } else { ?>
+								Care Care
+							<?php } ?>
+						</h6>
 					</div>					
 				</div>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6">
@@ -108,53 +124,58 @@ include "header2.php";
 			<h2 align="center" class="title mb-4">
 				Review Product
 			</h2>
-			<?php if ($null_review==null) { ?>
+			
+				
+							
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
+					<?php foreach ($review as $re => $item_class) { ?>
+					<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $re;?>" <?php echo !$re ? ' class="active"' : ''; ?>></li>
+					<?php }?>
 				</ol>
+
+
 				<div class="carousel-inner">
-					<div class="carousel-item p-60 active">
-						<div class="bg-blue-soft b-r-30 py-3 p-10">
-							<div class="row ">
-								<div class="col-12 col-sm-12 col-md-9 col-lg-9">
-									<div class="text-testimoni">
-										<p>Belum ada review untuk produk ini.</p>
+					<?php if ($review==null) { ?>
+						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="carousel-item p-60 active">
+									<div class="bg-blue-soft b-r-30 py-3 p-10">
+										<div class="text-testimoni" align="center">
+											<p>Belum ada review untuk produk ini.</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div><br>	
-					</div>
-				</div>
-			</div>
-			<?php } else { ?>
-				<?php foreach ($review as $re) : ?>				
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-						</ol>
-						<div class="carousel-inner">
-							<div class="carousel-item p-60 active">
-								<div class="bg-blue-soft b-r-30 py-3 p-10">
-									<div class="row ">
-										<div class="col-12 col-sm-12 col-md-3 col-lg-3">
-											<div class="avatar-testimoni" align="center">
-												<img src="<?= base_url()?>assets/home_assets/img/p.jpg">
-											</div>
-										</div>
-										<div class="col-12 col-sm-12 col-md-9 col-lg-9">
-											<div class="text-testimoni">
-												<p><?= $re['nama_orang']?></p>
-												<p>
-													“ <?= $re['review']?> ”
-												</p>
-											</div>								
-										</div>
-									</div>
-								</div>	<br>	
-							</div>
 						</div>
+					<?php } else { ?>
+
+					<?php  $item_class = ' active'; foreach ($review as $re): ?>
+					<div class="carousel-item<?php echo $item_class; ?> p-60">
+						<div class="bg-blue-soft b-r-30 py-3 p-10">
+							<div class="row ">
+								<div class="col-12 col-sm-12 col-md-3 col-lg-3">
+									<div class="avatar-testimoni pt-2" align="center">
+										<img src="<?= base_url()?>assets/home_assets/img/default-ava.jpg">
+									</div>
+								</div>
+								<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+									<div class="text-testimoni">
+										<p><b><?= $re['nama_orang']?></b></p>
+										<p>
+											“ <?= $re['review']?> ”
+										</p>
+									</div>								
+								</div>
+							</div>
+						</div>		
 					</div>
-				<?php endforeach;?>
-			<?php } ?>
+					<?php  $item_class = ''; endforeach;?>
+					<?php } ?>
+				</div>
+				
+
+			</div>
 		</div>			
 	</div>
 
@@ -192,8 +213,8 @@ include "header2.php";
 				</li>
 			</ol>
 		</div>
+
 	</div>
-	
 </div>
 
 

@@ -52,12 +52,12 @@ include "header.php";
 					Silahkan upload bukti transfer kamu untuk komfirmasi order 
 				</p>
 				<h6 class="blue mt-3"><b>File browser</b></h6>
-				<div class="custom-file mb-3 col-7">
-					<div class="col-sm-6 upload-btn">
-						<div class="img-thumbnail-cover">
+				<div class="custom-file mb-3">
+					<div class="upload-btn">
+						<div class="">
 							<form method="post" action="<?= base_url('upload/img_trs_umum_upload/')?><?= $nomor_transaksi ?>" enctype="multipart/form-data">
-								<input type="file" id="file_bukti_bayar" name="file_bukti_bayar" size="33" />
-								<input type="submit" value="Upload Image" /><br><br>
+								<input type="file" id="file_bukti_bayar" name="file_bukti_bayar" size="33" required/>
+								<input type="submit" value="Upload File" /><br><br>
 							</form>
 						</div>
 					</div>

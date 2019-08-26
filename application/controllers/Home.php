@@ -12,6 +12,30 @@ class Home extends CI_Controller {
 
 	}	 
 
+	public function error404()
+    {
+        if ($this->dasar_model->apakahMaintenance())
+		{
+			$this->load->view('public/maintenance');
+		}
+		else
+		{
+            if ($this->session->userdata($this->config->item('sess_prefix_distributor').'IDSession')) 
+            {
+                $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+                $data['cek_login'] = "1";
+            } 
+            else 
+            {
+                $data['cek_login'] = "0";
+            }
+
+            $data['all_produk_item'] = $this->distributor_model->getlistproduk();
+
+            $this->load->view('public/error404', $data);
+        }
+    }
+
 
 	public function index()
 	{
@@ -269,7 +293,7 @@ class Home extends CI_Controller {
 				$this->load->view('public/konfirmasi_pembayaran_registrasi', $data);
 				$this->load->view('public/footer');
 			} else {
-				$this->load->view('public/error_no_distributor');
+				$this->load->view('public/error404');
 			}
 			
 		}
@@ -285,16 +309,45 @@ class Home extends CI_Controller {
 		{
 			$permalink = $this->input->get('permalink');
 
+			$namafile = explode(".", $_FILES['bukti_transfer']['name']);
+			$fileext = end($namafile);
+
+			$waktu = date("YmdHis");
+			$acak = $this->dasarlib->getRandomString(4);
+
+			$nama_file_baru = $waktu."_".$acak.".".$fileext;
+
+			$image = $nama_file_baru;
+			$config['file_name']  = $nama_file_baru;
+			$config['upload_path'] = './assets/gambar_bayar_membership/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = 2000;
+			$config['max_width'] = 1500;
+			$config['max_height'] = 1500;
+
 			$data = array(
 				'status' => 1, 
 				'id_bank' => $this->input->post('kode'), 
 				'nomor_rekening' => $this->input->post('nomor_rekening'), 
 				'nama_rekening' => $this->input->post('nama_rekening'), 
+				'bukti_transfer' => $image, 
 			);
-
+			
 			$this->db->where('permalink', $permalink);
 			$this->db->update('member', $data);
-			redirect(base_url('konfirmasi_pembayaran_sukses'));
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('bukti_transfer')) {
+				$error = array('error' => $this->upload->display_errors());
+
+				$this->load->view('dashboard/error', $error);
+			} else {
+				$data = array('image_metadata' => $this->upload->data());
+
+				redirect(base_url('konfirmasi_pembayaran_sukses'));
+			}
+			
 		}
 	}
 

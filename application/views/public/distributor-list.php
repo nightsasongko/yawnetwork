@@ -48,8 +48,6 @@ include "header2.php";
 						</div>
 						<div class="body-panel px-3 pt-3 pb-5">
 							<h5 class="name-distributor"><b><?= $lm['nama']?></b></h5>
-							<h6>Kategori :</h6>
-							<p>Care Care</p>
 							<div class="pb-3">
 								<p>
 								<?php echo substr($lm['alamat'], 0,20).'...'; ?>

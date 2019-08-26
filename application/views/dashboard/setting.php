@@ -75,7 +75,7 @@ include "header.php";
 										<?php } ?>
 									</div>
 									<form method="post" action="<?= base_url('upload/avatar_upload') ?>" enctype="multipart/form-data">
-										<input type="file" id="profile_image" name="profile_image" size="33" />
+										<input type="file" id="profile_image" name="profile_image" size="33" required/>
 										<input type="submit" value="Upload Image" />
 									</form>
 								</div>
@@ -93,7 +93,7 @@ include "header.php";
 										<?php } ?>
 									</div>
 									<form method="post" action="<?= base_url('upload/img_toko_upload') ?>" enctype="multipart/form-data">
-										<input type="file" id="gambar_toko" name="gambar_toko" size="33" />
+										<input type="file" id="gambar_toko" name="gambar_toko" size="33" required/>
 										<input type="submit" value="Upload Image" />
 									</form>
 								</div>

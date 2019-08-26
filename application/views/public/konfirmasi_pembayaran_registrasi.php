@@ -20,14 +20,14 @@ include "header2.php";
 <section id="" class="">
 	<div class="container mt-5">
 		<div class="bg-white box-shadow px-3 py-3 mb-5">
-			<h2 class="blue mb-3" align="center">
+			<h2 class="blue mb-3" style="padding-bottom: 40px" align="center">
 				<b>Konfirmasi Pembayaran Registrasi</b>
 			</h2>
 
 
 
 			<!-- isi notifikasi-->
-			<form action="<?= base_url() ?>/home/pembayaran_registrasi_post?permalink=<?= $permalink?>" method="post">
+			<form action="<?= base_url() ?>/home/pembayaran_registrasi_post?permalink=<?= $permalink?>" method="post" enctype="multipart/form-data">
 				<table>
 					<h4 class="blue notif-text">Sudah Melakukan Pembayaran Melalui</h4><br>
 					<div class="form-group row">
@@ -47,7 +47,7 @@ include "header2.php";
 							Nomor Rekening
 						</label>
 						<div class="col-sm-6">
-							<input type="number" min="0" class="form-control" name="nomor_rekening" id="nomor_rekening" value="" placeholder="No Rekening">
+							<input type="number" min="0" class="form-control" name="nomor_rekening" id="nomor_rekening" value="" placeholder="No Rekening" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -55,12 +55,22 @@ include "header2.php";
 							Atas Nama Rekening
 						</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" name="nama_rekening" id="nama_rekening" value="" placeholder="Nama">
+							<input type="text" class="form-control" name="nama_rekening" id="nama_rekening" value="" placeholder="Nama" required>
 						</div>
 					</div>
+
+					<div class="form-group row">
+						<label for="avatar" class="col-sm-2 col-form-label">
+							Bukti Transfer
+						</label>
+						<div class="col-sm-6 upload-btn">
+							<input type="file" id="bukti_transfer" name="bukti_transfer" size="33" required/>
+						</div>
+					</div>
+
 				</table>
 					<input type="hidden" name="daftarfilelogo2" id="daftarfilelogo2">
-					<div class="btn-submit">
+					<div class="btn-submit" style="padding-top: 20px">
 						<button type="submit" class="btn">Submit</button>
 					</div>
 				</form>

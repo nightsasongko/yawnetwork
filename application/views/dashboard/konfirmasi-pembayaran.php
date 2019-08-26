@@ -75,7 +75,7 @@ include "header.php";
 							Nomor Rekening
 						</label>
 						<div class="col-sm-6">
-							<input type="number" min="0" class="form-control" name="nomor_rekening" id="nomor_rekening" value="<?= $profile['nomor_rekening'] ?>" placeholder="No Rekening">
+							<input type="number" min="0" class="form-control" name="nomor_rekening" id="nomor_rekening" value="<?= $profile['nomor_rekening'] ?>" placeholder="No Rekening" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -83,7 +83,7 @@ include "header.php";
 							Atas Nama Rekening
 						</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" name="nama_rekening" id="nama_rekening" value="<?= $profile['nama_rekening'] ?>" placeholder="Nama">
+							<input type="text" class="form-control" name="nama_rekening" id="nama_rekening" value="<?= $profile['nama_rekening'] ?>" placeholder="Nama" required>
 						</div>
 					</div>
 
@@ -93,13 +93,13 @@ include "header.php";
 						Nama Penerima
 						</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" name="nama_penerima" id="nama_penerima" value="<?= $profile['nama']?>" placeholder="Nama Penerima">
+							<input type="text" class="form-control" name="nama_penerima" id="nama_penerima" value="<?= $profile['nama']?>" placeholder="Nama Penerima" required>
 						</div>
 					</div>
 					<div class="form-group row ">
 						<label for="" class="col-sm-2 col-form-label">Alamat</label>
 						<div class="col-sm-6">
-							<textarea class="form-control" name="alamat_penerima" id="alamat_penerima" rows="3"><?php echo htmlspecialchars($profile['alamat']); ?></textarea>
+							<textarea class="form-control" name="alamat_penerima" id="alamat_penerima" rows="3" required><?php echo htmlspecialchars($profile['alamat']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -120,7 +120,7 @@ include "header.php";
 						Kode Pos
 						</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" name="kodepos_penerima" id="kodepos_penerima" value="" placeholder="Kode Pos">
+							<input type="text" class="form-control" name="kodepos_penerima" id="kodepos_penerima" value="" placeholder="Kode Pos" required>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -128,7 +128,7 @@ include "header.php";
 						Telepon
 						</label>
 						<div class="col-sm-6">
-							<input type="number" class="form-control" name="telepon_penerima" id="telepon_penerima" value="<?= $profile['telepon'] ?>" placeholder="Telepon">
+							<input type="number" class="form-control" name="telepon_penerima" id="telepon_penerima" value="<?= $profile['telepon'] ?>" placeholder="Telepon" required>
 						</div>
 					</div>
 					

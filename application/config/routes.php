@@ -91,3 +91,5 @@ $route['form_pembayaran_registrasi'] = "home/pembayaran_registrasi";
 $route['konfirmasi_pembayaran_sukses'] = "home/after_konfirmasi_pembayaran_registrasi";
 $route['error_page'] = "distributor/errorpage";
 
+$route['404_override'] = "home/error404";
+
