@@ -34,7 +34,7 @@ include "header.php";
 		<div class="d-flex bd-highlight">
 			<div class="mr-auto p-2 bd-highlight">
 				<div class="brand-logo">
-					<a href="">
+					<a href="<?= base_url()?>">
 						<img src="<?= base_url()?>assets/home_assets/img/brand-logo.png">
 					</a>
 				</div>
