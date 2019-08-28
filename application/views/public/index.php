@@ -200,7 +200,7 @@ include "header2.php";
 							<div class="form-group row checkbox-text">
 								<label for="" class="col-sm-3 col-form-label"></label>
 								<div class="col-sm-9">
-									<input id="checkbox-1" class="checkbox-custom" name="checkbox-1" type="checkbox">
+									<input id="checkbox-1" class="checkbox-custom" name="checkbox-1" type="checkbox" required>
 									<label for="checkbox-1" class="checkbox-custom-label">
 										Dengan ini saya menyatakan setuju dengan <a href="<?= base_url()?>syarat-ketentuan">syarat dan ketentuan</a> yang berlaku
 									</label>

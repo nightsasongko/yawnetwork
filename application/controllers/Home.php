@@ -175,7 +175,7 @@ class Home extends CI_Controller {
 			}
 			else
 			{
-				$this->load->view('public/error_no_distributor');
+				$this->load->view('public/error404');
 			}
 		}
 	}
@@ -288,6 +288,9 @@ class Home extends CI_Controller {
 				//mendapatkan list bank
 				$data['bank'] = $this->db->get('bank_list')->result_array();
 				
+				//mengambil data wilayah
+				$data['wilayah'] = $this->db->get('master_wilayah')->result_array();
+
 				$data['title'] = "YAW";
 				$this->load->view('public/header', $data);
 				$this->load->view('public/konfirmasi_pembayaran_registrasi', $data);
@@ -326,6 +329,10 @@ class Home extends CI_Controller {
 			$config['max_height'] = 1500;
 
 			$data = array(
+				'alamat' => $this->input->post('alamat', true),
+                'id_kota' => $this->input->post('id_kota', true),
+                'kodepos' => $this->input->post('kodepos', true),
+                'telepon' => $this->input->post('telepon', true),
 				'status' => 1, 
 				'id_bank' => $this->input->post('kode'), 
 				'nomor_rekening' => $this->input->post('nomor_rekening'), 

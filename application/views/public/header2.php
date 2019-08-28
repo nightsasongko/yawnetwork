@@ -1,3 +1,8 @@
+<style type="text/css">
+	.btn-orange {
+
+	}
+</style>
 <div id="header" class="header">
 	<div class="container">
 		<nav>
@@ -148,7 +153,7 @@
 		<a href="<?= base_url('management-board')?>">Management Board</a>
 		<a  class="accordion">
 			Product List 
-			<span class="float-right">
+			<span class="float-right mr-3">
 				<i class="fas fa-angle-down"></i>
 			</span>
 		</a>
@@ -157,7 +162,7 @@
 				<?php foreach ($all_produk_item as $ap_item) : ?>
 					<li>
 						<a tabindex="-1" href="<?= base_url('home/detailproduk/') . $ap_item['permalink']?>">
-							<?= substr($ap_item['nama'], 0,10).'...'?>
+							<?= substr($ap_item['nama'], 0,15).''?>
 						</a>
 					</li>
 				<?php endforeach;?>
@@ -220,11 +225,11 @@
 		</div>
 		<a href="<?= base_url() ?>distributor-list">Distributor List</a>
 		<?php if ($cek_login==1) {?>
-			<a href="<?= base_url() ?>dashboard" class="btn-orange">
-				profile
+			<a href="<?= base_url() ?>dashboard" class="btn-orange mr-4">
+				Profile
 			</a>
 		<?php } if ($cek_login==0) { ?>
-			<a href="<?= base_url() ?>login" class="btn-orange">
+			<a href="<?= base_url() ?>login" class="btn-orange mr-4">
 				Login
 			</a>
 		<?php } ?>

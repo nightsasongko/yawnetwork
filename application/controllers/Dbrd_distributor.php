@@ -521,48 +521,55 @@ class Dbrd_distributor extends CI_Controller {
 		}
 		else
 		{
-             // cek session aktif
-			if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
-				redirect(base_url());
+            // cek bila status_bayar 0 true
+            if ($this->distributor_model->getcekkodetransaksipengiriman($nomor_transaksi)) {
+                 // cek session aktif
+                if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
+                    redirect(base_url());
+                }
+
+                // data member
+                $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+                $profile = $data['profile'];
+                $id_member = $profile['id_member'];
+                $profile = $data['profile'];
+                $id_kota = $profile['id_kota'];
+                $id_bank = $profile['id_bank'];
+
+                // jumlah belanja
+                $data['num_kjngbln'] = $this->distributor_model->num_keranjang_belanja($id_member);
+
+                // join tabel member dan master_wilayah untuk mendapatkan namakab
+                $this->db->select('*');
+                $this->db->from('member');
+                $this->db->where('member.id_kota', $id_kota);
+                $this->db->join('master_wilayah', 'master_wilayah.id = member.id_kota');
+                $query=$this->db->get();
+                $data['kota']=$query->row_array();
+                
+                //mengambil data wilayah
+                $data['wilayah'] = $this->db->get('master_wilayah')->result_array();
+
+                //mendapatkan list bank
+                $data['bank'] = $this->db->get('bank_list')->result_array();
+
+                //join tabel member dan master_wilayah untuk mendapatkan namakab
+                $this->db->select('*');
+                $this->db->from('member');
+                $this->db->where('member.id_bank', $id_bank);
+                $this->db->join('bank_list', 'bank_list.kode = member.id_bank');
+                $query=$this->db->get();
+                $data['d_bank']=$query->row_array();
+
+                //nomor_transaksi
+                $data['nomor_transaksi'] = $nomor_transaksi;
+
+                $this->load->view('dashboard/konfirmasi-pembayaran', $data);
+            } else {
+                redirect(base_url('histori_transaksi'));
             }
-
-            // data member
-            $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
-            $profile = $data['profile'];
-            $id_member = $profile['id_member'];
-            $profile = $data['profile'];
-            $id_kota = $profile['id_kota'];
-            $id_bank = $profile['id_bank'];
-
-            // jumlah belanja
-            $data['num_kjngbln'] = $this->distributor_model->num_keranjang_belanja($id_member);
-
-            // join tabel member dan master_wilayah untuk mendapatkan namakab
-            $this->db->select('*');
-            $this->db->from('member');
-            $this->db->where('member.id_kota', $id_kota);
-            $this->db->join('master_wilayah', 'master_wilayah.id = member.id_kota');
-            $query=$this->db->get();
-            $data['kota']=$query->row_array();
             
-            //mengambil data wilayah
-            $data['wilayah'] = $this->db->get('master_wilayah')->result_array();
-
-            //mendapatkan list bank
-            $data['bank'] = $this->db->get('bank_list')->result_array();
-
-            //join tabel member dan master_wilayah untuk mendapatkan namakab
-            $this->db->select('*');
-            $this->db->from('member');
-            $this->db->where('member.id_bank', $id_bank);
-            $this->db->join('bank_list', 'bank_list.kode = member.id_bank');
-            $query=$this->db->get();
-            $data['d_bank']=$query->row_array();
-
-            //nomor_transaksi
-            $data['nomor_transaksi'] = $nomor_transaksi;
-
-            $this->load->view('dashboard/konfirmasi-pembayaran', $data);
+            
         }
     }
 
@@ -574,22 +581,29 @@ class Dbrd_distributor extends CI_Controller {
 		}
 		else
 		{
-            $data['nomor_transaksi'] = $this->input->get('nomor_transaksi');
+            $nomor_transaksi = $this->input->get('nomor_transaksi');
+            if ($this->distributor_model->getcekkonfirmasiterkirim($nomor_transaksi)) {
+                $data['nomor_transaksi'] = $this->input->get('nomor_transaksi');
 
-             // cek session aktif
-			if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
-				redirect(base_url());
+                // cek session aktif
+               if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
+                   redirect(base_url());
+               }
+   
+               // data member
+               $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
+               $profile = $data['profile'];
+               $id_member = $profile['id_member'];
+   
+               // jumlah belanja
+               $data['num_kjngbln'] = $this->distributor_model->num_keranjang_belanja($id_member);
+   
+               $this->load->view('dashboard/konfirmasi-terima-barang', $data);
+            } else {
+                redirect(base_url('histori_transaksi'));
             }
-
-            // data member
-            $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
-            $profile = $data['profile'];
-            $id_member = $profile['id_member'];
-
-            // jumlah belanja
-            $data['num_kjngbln'] = $this->distributor_model->num_keranjang_belanja($id_member);
-
-            $this->load->view('dashboard/konfirmasi-terima-barang', $data);
+            
+           
         }
     }
 
@@ -693,7 +707,23 @@ class Dbrd_distributor extends CI_Controller {
 			if(!isset($_SESSION[$this->config->item('sess_prefix_distributor').'loggedinSession'])){
 				redirect(base_url());
             }
-            
+
+            $namafile = explode(".", $_FILES['file_bukti_bayar']['name']);
+            $fileext = end($namafile);
+    
+            $waktu = date("YmdHis");
+            $acak = $this->dasarlib->getRandomString(4);
+    
+            $nama_file_baru = $waktu."_".$acak.".".$fileext;
+    
+            $image = $nama_file_baru;
+            $config['file_name']  = $nama_file_baru;
+            $config['upload_path'] = './assets/gambar_bukti_bayar/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 2000;
+            $config['max_width'] = 1500;
+            $config['max_height'] = 1500;
+    
             $data = array(
                 'kode_bank' => $this->input->post('kode'), 
                 'nomor_rekening' => $this->input->post('nomor_rekening'), 
@@ -705,11 +735,29 @@ class Dbrd_distributor extends CI_Controller {
                 'kodepos_penerima' => $this->input->post('kodepos_penerima'), 
                 'telepon_penerima' => $this->input->post('telepon_penerima'),
                 'nomor_transaksi' => $this->input->post('nomor_transaksi'),
+                'file_bukti_bayar' => $image
             );
 
             $this->db->where('nomor_transaksi', $this->input->post('nomor_transaksi'));
             $this->db->update('transaksi_umum', $data);
-            redirect('histori_transaksi');
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('file_bukti_bayar')) {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('dashboard/error', $error);
+            } else {
+                $data = array('image_metadata' => $this->upload->data());
+
+                redirect(base_url('histori_transaksi'));
+            }
+
+
+
+
+            
+            
         }
     }
 	

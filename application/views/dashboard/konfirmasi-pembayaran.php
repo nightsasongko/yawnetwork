@@ -54,7 +54,7 @@ include "header.php";
 				</div>
 
 				<!-- isi notifikasi-->
-				<form action="<?= base_url() ?>/dbrd_distributor/konfirmasi_pembayaran_post" method="post">
+				<form action="<?= base_url() ?>upload/img_trs_umum_upload" method="post" enctype="multipart/form-data">
 				<table>
 					<h4 class="blue notif-text">Pembayaran Melalui</h4>
 					<div class="form-group row">
@@ -133,35 +133,18 @@ include "header.php";
 					</div>
 					
 					<div class="form-group row">
-						<!-- <label for="avatar" class="col-sm-2 col-form-label">
-							Upload Bukti Bayar
+					<label for="" class="col-sm-2 col-form-label">
+						Bukti Transfer
 						</label>
-						<div class="col-sm-6 upload-btn">
-						<button type="button" class="btn btn-primary" onClick="mulai_upload2();" name="btnuploader2" id="btnuploader2"><i class='fa fa-image'></i> Browse</button>
-							<div id="preview_gambar2" style="margin-bottom:20px; margin-top:10px;">
-									
-							</div>
-						</div> -->
-						<!-- <label for="avatar" class="col-sm-2 col-form-label">
-							Bukti Bayar
-						</label>
-						<div class="col-sm-6 upload-btn">
-							<form method="post" action="<?= base_url('upload/img_trs_umum_upload/')?><?= $nomor_transaksi ?>" enctype="multipart/form-data">
-								<input type="file" id="file_bukti_bayar" name="file_bukti_bayar" size="33" />
-								<input type="submit" value="Upload Image" />
-							</form>
-						</div> -->
+						<div class="col-sm-6">
+							<input type="file" id="file_bukti_bayar" name="file_bukti_bayar" size="33" required/>
+						</div>
 					</div>
-
 					<input type="hidden" name="nomor_transaksi" value="<?= $nomor_transaksi?>">
 				</table>
-					<input type="hidden" name="daftarfilelogo2" id="daftarfilelogo2">
 					<div class="btn-submit">
 						<button type="submit" class="btn">Submit</button>
 					</div>
-				</form>
-				<form name="uploadform2" id="uploadform2" method="post" style="display:none" class="hide" action="<?php echo base_url();?>dbrd_distributor/gambar_bukti_transfer" enctype="multipart/form-data">
-					<input type="file" name="gambar2" id="gambar2" >
 				</form>
 			</div>
 		</div>
@@ -213,76 +196,6 @@ include "header.php";
 
 
 
-<script type="text/javascript">
-//begin uploader foto 
-function mulai_upload2()
-        {
-            $('#gambar2').click();
-        }
 
-        $('#gambar2').on('change',function(){
-            $('#uploadform2').submit();
-            })
-
-    $("#uploadform2").submit(function(event){
-        event.preventDefault();
-        //$("#totalfoto").val($(".boximage").length);
-        var formData = new FormData(this);
-        //$("#photoCropperData").html("");
-        //counterPhoto++;
-        //$('#uploadbar').html('uploading... ');
-
-        $.ajax({
-            xhr: function()
-              {
-                var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress", function(evt){
-                  if (evt.lengthComputable) {
-                    var percentComplete = Math.round(100*evt.loaded / evt.total);
-
-                    if(percentComplete==100){
-                        uploading = "completed";
-                        $("#btnuploader2").html("<i class='fa fa-image'></i> Ganti Gambar");
-                        $('#uploadbar2').html('Upload completed');
-                    }else{
-                        uploading = "";
-                        //$('#uploadbar').show();
-                        $('#uploadbar2').html('uploading... ' + percentComplete + '%');
-                        //$('#btnuploader').html("<i class='fa fa-circle-o-notch fa-spin'></i><br> Uploading.."+(percentComplete)+"%");
-                    }
-                  }
-                }, false);
-
-                return xhr;
-            },
-            url:"<?=base_url()?>dbrd_distributor/gambar_bukti_transfer",
-            type:"POST",
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData:false,
-        })
-        .done(function(result){
-            var htmlData = result;
-            arrmsg = result.split('|');
-            benergak = arrmsg[0];
-            pesan = arrmsg[1];
-            nama_aja = arrmsg[2];
-
-            if(benergak == '0')
-            {
-                alert('Gagal Upload');
-            }
-            else
-            {
-                $('#daftarfilelogo2').val(nama_aja);
-                $('#preview_gambar2').html(pesan);
-            }
-        });
-    });
-
-    
-//end uploader foto   
-</script>
 </body>
 </html>

@@ -101,12 +101,13 @@ class Upload extends CI_Controller {
         }
     }
 	
-	public function img_trs_umum_upload($nomor_transaksi)
+	public function img_trs_umum_upload()
     {
         // mendapatkan id_member
         $data['profile'] = $this->dasar_model->getDetailOnField('member','id_member', $_SESSION[$this->config->item('sess_prefix_distributor').'IDSession']);
         $profile = $data['profile'];
         $id_member = $profile['id_member'];
+
         $namafile = explode(".", $_FILES['file_bukti_bayar']['name']);
 		$fileext = end($namafile);
 
@@ -124,22 +125,32 @@ class Upload extends CI_Controller {
         $config['max_height'] = 1500;
 
         $data = array(
-            'file_bukti_bayar' => $image, 
-        );
-        
-        $this->db->where('nomor_transaksi', $nomor_transaksi);
-        $this->db->update('transaksi_umum', $data);
+                'kode_bank' => $this->input->post('kode'), 
+                'nomor_rekening' => $this->input->post('nomor_rekening'), 
+                'status_bayar' => 4, 
+                'nama_rekening' => $this->input->post('nama_rekening'), 
+                'nama_penerima' => $this->input->post('nama_penerima'), 
+                'alamat_penerima' => $this->input->post('alamat_penerima'), 
+                'id_kota_penerima' => $this->input->post('id_kota_penerima'), 
+                'kodepos_penerima' => $this->input->post('kodepos_penerima'), 
+                'telepon_penerima' => $this->input->post('telepon_penerima'),
+                'nomor_transaksi' => $this->input->post('nomor_transaksi'),
+                'file_bukti_bayar' => $image
+            );
 
-        $this->load->library('upload', $config);
+            $this->db->where('nomor_transaksi', $this->input->post('nomor_transaksi'));
+            $this->db->update('transaksi_umum', $data);
 
-        if (!$this->upload->do_upload('file_bukti_bayar')) {
-            $error = array('error' => $this->upload->display_errors());
+            $this->load->library('upload', $config);
 
-            $this->load->view('dashboard/error', $error);
-        } else {
-            $data = array('image_metadata' => $this->upload->data());
+            if (!$this->upload->do_upload('file_bukti_bayar')) {
+                $error = array('error' => $this->upload->display_errors());
 
-            redirect('dbrd_distributor/konfirmasi_pembayaran/'.$nomor_transaksi);
-        }
+                $this->load->view('dashboard/error', $error);
+            } else {
+                $data = array('image_metadata' => $this->upload->data());
+
+                redirect(base_url('histori_transaksi'));
+            }
     }
 }

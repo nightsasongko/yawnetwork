@@ -290,6 +290,38 @@ class Distributor_model extends CI_Model
 			return false;
 		}
     }	
+
+    function getcekkodetransaksipengiriman($nomor_transaksi)
+	{
+		$sql = "select status_bayar as jml from transaksi_umum where nomor_transaksi = $nomor_transaksi";
+		$res = $this->db->query($sql);
+		$row = $res->row_array();		
+		$jml = $row['jml'];
+		if($jml == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }	
+
+    function getcekkonfirmasiterkirim($nomor_transaksi)
+	{
+		$sql = "select status_kirim as jml from transaksi_umum where status_kirim = 1 and nomor_transaksi = $nomor_transaksi";
+		$res = $this->db->query($sql);
+		$row = $res->row_array();		
+		$jml = $row['jml'];
+		if($jml > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }	
     
     
 }

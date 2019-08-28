@@ -68,6 +68,44 @@ include "header2.php";
 						</div>
 					</div>
 
+					<h4 class="blue notif-text">Data Alamat Untuk Pengiriman Produk</h4>
+					<div class="form-group row">
+						<label for="" class="col-sm-2 col-form-label">
+							Alamat
+						</label>
+						<div class="col-sm-6">
+							<textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="" class="col-sm-2 col-form-label">
+							Kota
+						</label>
+						<div class="col-sm-6">
+							<select name="id_kota" id="id_kota" required>
+								<?php foreach ($wilayah as $w_kota) : ?>
+									<option value="<?= $w_kota['id'] ?>"><?= $w_kota['namakab'] ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="" class="col-sm-2 col-form-label">
+							Kode Pos
+						</label>
+						<div class="col-sm-6">
+							<input type="number" min="0" class="form-control" name="kodepos" id="kodepos" value="" placeholder="" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="" class="col-sm-2 col-form-label">
+							Telepon
+						</label>
+						<div class="col-sm-6">
+							<input type="number" min="0" class="form-control" name="telepon" id="telepon" value="" placeholder="089789xxx" required>
+						</div>
+					</div>
+
 				</table>
 					<input type="hidden" name="daftarfilelogo2" id="daftarfilelogo2">
 					<div class="btn-submit" style="padding-top: 20px">

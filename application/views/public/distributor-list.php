@@ -33,14 +33,14 @@ include "header2.php";
 					<div class="distributor-card bg-white">
 						<div class="cover">
 							<?php if ($lm['gambar_toko']==null) { ?>
-									<img style="width: 100%;" src="<?= base_url('assets/gambar_distributor/gambar_toko/no-photo.jpg') ?>" class="img-cover-card">
+									<img style="width: 100%;" src="<?= base_url('assets/gambar_distributor/gambar_toko/display-shop.jpg') ?>" class="img-cover-card">
 							<?php } else { ?>
 								<img src="<?= base_url('assets/gambar_distributor/gambar_toko/') . $lm['gambar_toko'] ?>" class="img-cover-card">
 							<?php } ?>
 							
 							<div align="center">
 								<?php if ($lm['avatar']==null) { ?>
-									<img style="width: 100%;" src="<?= base_url('assets/gambar_distributor/avatar/noimage.png') ?>" class="logo-distributor">
+									<img style="width: 100%;" src="<?= base_url('assets/gambar_distributor/avatar/default-logo-toko.jpg') ?>" class="logo-distributor">
 								<?php } else { ?>
 									<img src="<?= base_url('assets/gambar_distributor/avatar/') . $lm['avatar'] ?>" class="logo-distributor">
 								<?php } ?>

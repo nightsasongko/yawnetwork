@@ -107,15 +107,12 @@ include "header.php";
 								<td>
 									
 								</td>
-								<td>
-									
-								</td>
-								<td>
+								<td align="right">
 									<h6 class="pt-2">
 										<b>Total</b>
 									</h6>
 								</td>
-								<td align="right">
+								<td >
 									<h6 class="pt-2">
 										<b>
 											<div id='total_belanja'>
@@ -123,6 +120,9 @@ include "header.php";
 											</div>
 										</b>
 									</h6>
+								</td>
+								<td >
+									
 								</td>
 								<td>
 									
