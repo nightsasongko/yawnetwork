@@ -90,16 +90,32 @@ class Distributor extends CI_Controller {
                 }
                 else 
                 {
+                    $permalink= $this->dasarlib->buatPermalink($this->input->post('nama', true));
                     $data = array(
                         'nama' => htmlspecialchars($this->input->post('nama', true)),
                         'level' => 1,
                         'email' => htmlspecialchars($this->input->post('email', true)),
                         'password' => md5($this->input->post('password1')),
                         'join_date' => date('Y-m-d'), 
-                        'permalink' => $this->dasarlib->buatPermalink($this->input->post('nama', true))
+                        'permalink' => $permalink
                     );
                     $this->db->insert('member', $data);
                     $this->session->set_flashdata('rgs_success', 'Registrasi berhasil.');
+
+                    // kirim email disini
+                    $data['name']	= $this->input->post('nama');
+                    
+
+                    $data['link']	= "http://yawnetwork.com/form_pembayaran_registrasi?permalink=$permalink";
+                    
+                    $data['email_pengirim']	= "info@yawnetwork.com";
+                    $data['email_tujuan']	= $this->input->post('email');
+                    $data['subjek']			= "Registrasi Akun Distributor YAW Network";
+                    $data['template']		= 'yaw_registrasi_member';
+                    
+                    //var_dump($data); exit;
+                    $this->dasarlib->send_email($data);
+
                     redirect(base_url().'distributor/after_registrasi');
                 }
             }

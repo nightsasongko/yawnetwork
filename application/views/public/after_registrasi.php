@@ -56,7 +56,7 @@ include "header.php";
 				
 				<h4 class="blue mb-3" align="center">
 					<b>
-					Trimakasih sudah melakukan pendaftaran.
+						Terimakasih sudah melakukan pendaftaran. Untuk proses selajutnya lakukan transfer ke rekening yang kami kirim ke email anda. Email resmi kami di info@yawnetwork.com
 					</b>
 				</h4>
 				<div class="width-btn mt-4" align="center">

@@ -340,9 +340,140 @@ class Member extends CI_Controller {
 		}
 		echo "$bener|$pesan";	
 	}
+
+	public function aktivasi_member()
+	{
+		if(!(isset($_SESSION[$this->config->item('sess_prefix').'loggedinSession'])))
+		{
+			redirect(base_url('backend/login'));
+			exit;
+		}
+		$iduser = $_SESSION[$this->config->item('sess_prefix')."IDSession"];
+		if(!($this->dasarlib->apakahBolehMelakukan('MEMBER','ubah',$iduser)))
+		{
+			redirect(base_url('backend/login'));
+			exit;
+		}
+
+		$_SESSION[$this->config->item('sess_prefix')."NamaPageSession"] = "member";
+		$_SESSION[$this->config->item('sess_prefix')."NamaSubPageSession"] = "";
+
+		$data['header1'] = $this->load->view('admin/header1', NULL, TRUE);
+        $data['header2'] = $this->load->view('admin/header2', NULL, TRUE);
+        $data['sidebar'] = $this->load->view('admin/sidebar', NULL, TRUE);
+		$data['footer'] = $this->load->view('admin/footer', NULL, TRUE);
+
+		if(!($this->input->get('id')))
+		{
+  			echo "ERROR: No item selected...";
+			exit;
+		}
+		else
+		{
+		  	if(!(is_numeric($this->input->get('id'))))
+		  	{
+  				echo "ERROR: invalid number...";
+				exit;
+		  	}
+			else
+			{
+				$id_member = $this->input->get('id');
+			}  
+		}
+
+		$data['detail'] = $this->dasar_model->getDetailOnField('member', 'id_member', $id_member);
+		$data['join_date'] = $this->dasarlib->ubahTanggalPendek2($data['detail']['join_date']);
+
+		if($data['detail']['avatar'] == "")
+		{
+			$data['avatar'] = "noimage.png";
+		}
+		else
+		{
+			$data['avatar'] = $data['detail']['avatar'];
+		}
+
+		if($data['detail']['bukti_transfer'] == "")
+		{
+			$data['bukti_transfer'] = "noimage.png";
+		}
+		else
+		{
+			$data['bukti_transfer'] = $data['detail']['bukti_transfer'];
+		}
+		
+		$id_kota = $data['detail']['id_kota'];
+		$data['dekota'] = $this->dasar_model->getDetailOnField('master_wilayah', 'id', $id_kota);
+
+		$id_bank = $data['detail']['id_bank'];
+		$data['debank'] = $this->dasar_model->getDetailOnField('bank_list', 'kode', $id_bank);
+
+		$this->load->view('admin/member/aktivasi_member', $data);
+	}
+
+	public function do_aktivasi_member()
+	{
+		$iduser = $_SESSION[$this->config->item('sess_prefix')."IDSession"];
+		$username_user = $_SESSION[$this->config->item('sess_prefix')."UsernameSession"];
+
+		if(!($this->dasarlib->apakahBolehMelakukan('MEMBER','ubah',$iduser)))
+		{
+			redirect(base_url('backend/login'));
+			exit;
+		}
+		
+		$bener = 1;
+		$tujuan = base_url()."backend/member/index";
+		$id_member = $this->input->post('id');
+
+		$data['detail'] = $this->dasar_model->getDetailOnField('member', 'id_member', $id_member);
+		$nama_member = $data['detail']['nama'];
+		$email_member = $data['detail']['email'];
+
+		$kedb['status'] = trim($this->input->post('status'));
+
+		if($kedb['status'] == 2)
+		{
+
+			$namatabel = "member";
+
+			//simpan data
+			$bener = $this->dasar_model->updateData($namatabel,$kedb,'id_member',$id_member);
+			if($bener == 1)
+			{
+				$pesan =  "Simpan Data Sukses";
+
+				// kirim email disini
+				$data['name']	= $nama_member;
+				
+
+				$data['link']	= "http://yawnetwork.com/login";
+				
+				$data['email_pengirim']	= "info@yawnetwork.com";
+				$data['email_tujuan']	= $email_member;
+				$data['subjek']			= "Aktifasi Distributor YAW Network";
+				$data['template']		= 'yaw_aktivasi_member';
+				
+				//var_dump($data); exit;
+				$this->dasarlib->send_email($data);
+
+
+				//begin masukkan ke audit trail
+				$keterangan_trail = "Aktivasi member: ".$nama_member;
+				$this->dasar_model->insertTrail($iduser, $username_user, $keterangan_trail);
+				//end masukkan ke audit trail
+			}
+			else
+			{
+				$bener = 0;
+				$pesan =  "Simpan Data Gagal";
+			}	
+		}					
+		
+		echo "$bener|$tujuan|$pesan";
+	}
 	
 
 
 }
-
 ?>

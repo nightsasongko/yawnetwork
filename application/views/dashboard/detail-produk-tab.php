@@ -68,12 +68,10 @@ include "header.php";
 				<h5 class="mb-2 blue"><b>Tentang <?= $item_produk['nama'] ?></b></h5>
 				<div class="row">
 					<?php foreach ($foto_produk as $fp) : ?>
-						<div class="col-12 col-sm-12 col-md-4 col-lg-4">
-
-							<img src="<?= base_url() ?>assets/gambar_item/foto/<?= $fp['foto'] ?>" alt="" class="img-photo">
-
-						</div>
-					<?php endforeach; ?>
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 cmp-img">
+						<a href="<?= base_url() ?>assets/gambar_item/foto/<?= $fp['foto']?>"><img src="<?= base_url() ?>assets/gambar_item/foto/<?= $fp['foto']?>" alt="" class="img-photo-b"></a>
+					</div>
+					<?php endforeach;?>
 				</div>
 				<p>
 					<?= $item_produk['deskripsi'] ?>
